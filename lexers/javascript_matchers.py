@@ -1,4 +1,4 @@
-from lexers.universal_lexer_checks import maybe_include_numbers, is_whitespace
+from lexers.universal_lexer_checks import maybe_include_numbers, is_whitespace, include_double_quote_strings, include_literal_strings, include_single_quote_strings
 def paren_matcher(input, current_position):
     char = input[current_position]  
     if char == '(':
@@ -7,6 +7,18 @@ def paren_matcher(input, current_position):
         return {'type': "paren", 'value': ")"}, current_position + 1
     if is_whitespace(char):
         return
+    
+    string_input, new_position = include_double_quote_strings(input, current_position)
+    if(string_input):
+        return {'type': "string", 'value': string_input}, new_position
+    
+    string_input, new_position = include_single_quote_strings(input, current_position)
+    if(string_input):
+        return {'type': "string", 'value': string_input}, new_position
+    
+    string_input, new_position = include_literal_strings(input, current_position)
+    if(string_input):
+        return {'type': "string", 'value': string_input}, new_position
     
     numerical_input, new_position = maybe_include_numbers(input, current_position)
     print(numerical_input)
