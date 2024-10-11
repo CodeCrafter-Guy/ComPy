@@ -29,7 +29,7 @@ def is_whitespace(char):
 def is_numbers(char):
     return bool(re.match(NUMBERS, char))
 
-def maybe_include_numbers(input, current_position):
+def include_numbers(input, current_position):
     """
     Extracts a sequence of numerical characters from the input string, starting at the current position.
     
@@ -62,6 +62,13 @@ def maybe_include_numbers(input, current_position):
             break
     
     return numerical_input, current_position
+
+def include_word(input, current_position):
+    word = ''    
+    while is_in_bounds(input, current_position) and re.match(LETTERS, input[current_position]):
+        word += input[current_position]
+        current_position += 1    
+    return word, current_position
 
 def include_double_quote_strings(input, current_position):
     return include_string(input, current_position, '"')
