@@ -1,26 +1,223 @@
+lexer_config_version: 1.0.0
 lexer_target: javascript
+delimiters: " \t\n\r;(){}[]+=-*/%&|^!<>?:.,"
 tokens:
+  # **Comments** (Place before operators to prevent conflicts with '/')
+  - type: multi_line_comment
+    pattern: "/\\*[^*]*\\*+(?:[^/*][^*]*\\*+)*/"
+  - type: single_line_comment
+    pattern: "//.*"
+
+  # **String Literals** (Place before punctuators and operators)
+  # Double-quoted string literal
+  - type: string_literal
+    pattern: '"([^"\\\\]|\\\\.)*"'
+  # Single-quoted string literal
+  - type: string_literal
+    pattern: "'([^'\\\\]|\\\\.)*'"
+  # Template literals (backticks)
+  - type: template_literal_start
+    value: "`"
+  - type: template_literal_end
+    value: "`"
+
+  # **Operators** (Multi-character operators before single-character operators)
+  - type: operator
+    value: "==="
+  - type: operator
+    value: "!=="
+  - type: operator
+    value: ">>>="
+  - type: operator
+    value: "<<="
+  - type: operator
+    value: ">>="
+  - type: operator
+    value: "**="
+  - type: operator
+    value: "+="
+  - type: operator
+    value: "-="
+  - type: operator
+    value: "*="
+  - type: operator
+    value: "/="
+  - type: operator
+    value: "%="
+  - type: operator
+    value: "&="
+  - type: operator
+    value: "^="
+  - type: operator
+    value: "|="
+  - type: operator
+    value: "=>"
+  - type: operator
+    value: "=="
+  - type: operator
+    value: "!="
+  - type: operator
+    value: ">="
+  - type: operator
+    value: "<="
+  - type: operator
+    value: "&&"
+  - type: operator
+    value: "||"
+  - type: operator
+    value: "++"
+  - type: operator
+    value: "--"
+  - type: operator
+    value: "**"
+  - type: operator
+    value: ">>"
+  - type: operator
+    value: "<<"
+  - type: operator
+    value: "&"
+  - type: operator
+    value: "|"
+  - type: operator
+    value: "^"
+  - type: operator
+    value: "~"
+  - type: operator
+    value: "!"
+  - type: operator
+    value: "+"
+  - type: operator
+    value: "-"
+  - type: operator
+    value: "*"
+  - type: operator
+    value: "/"
+  - type: operator
+    value: "%"
+  - type: operator
+    value: "="
+  - type: operator
+    value: ">"
+  - type: operator
+    value: "<"
+  - type: operator
+    value: "?"
+  - type: operator
+    value: ":"
+  - type: operator
+    value: "."
+
+  # **Punctuators** (Multi-character punctuators before single-character punctuators)
+  - type: punctuator
+    value: "..."
+  - type: open_code_block
+    value: "{"
+  - type: closed_code_block
+    value: "}"
   - type: open_parenthesis
     value: "("
-  - type: close_parenthesis
+  - type: closed_parenthesis
     value: ")"
-  - type: open_codeblock
-    value: "{"
-  - type: close_codeblock
-    value: "}"
+  - type: open_square_bracket
+    value: "["
+  - type: closed_square_bracket
+    value: "]"
   - type: end_of_statement
     value: ";"
+  - type: punctuator
+    value: ","
+
+  # **Literals**
+  # Numeric literals (Place floating-point patterns before integer patterns)
+  - type: float
+    pattern: "\\b\\d+\\.\\d*([eE][+-]?\\d+)?\\b"
+  - type: number
+    pattern: "\\b\\d+\\b"
+
+  # Boolean literals
+  - type: boolean_literal
+    value: "true"
+  - type: boolean_literal
+    value: "false"
+
+  # Null literal
+  - type: null_literal
+    value: "null"
+
+  # **Keywords** (No specific order, but ensure they are before identifiers)
   - type: keyword
-    value: "function"
+    value: "break"
+  - type: keyword
+    value: "case"
+  - type: keyword
+    value: "catch"
+  - type: keyword
+    value: "class"
   - type: keyword
     value: "const"
   - type: keyword
+    value: "continue"
+  - type: keyword
+    value: "debugger"
+  - type: keyword
+    value: "default"
+  - type: keyword
+    value: "delete"
+  - type: keyword
+    value: "do"
+  - type: keyword
+    value: "else"
+  - type: keyword
+    value: "export"
+  - type: keyword
+    value: "extends"
+  - type: keyword
+    value: "finally"
+  - type: keyword
+    value: "for"
+  - type: keyword
+    value: "function"
+  - type: keyword
+    value: "if"
+  - type: keyword
+    value: "import"
+  - type: keyword
+    value: "in"
+  - type: keyword
+    value: "instanceof"
+  - type: keyword
+    value: "let"
+  - type: keyword
+    value: "new"
+  - type: keyword
+    value: "return"
+  - type: keyword
+    value: "super"
+  - type: keyword
+    value: "switch"
+  - type: keyword
+    value: "this"
+  - type: keyword
+    value: "throw"
+  - type: keyword
+    value: "try"
+  - type: keyword
+    value: "typeof"
+  - type: keyword
     value: "var"
-  - type: assigner
-    value: "="
-  - type: tab_space
-    pattern: r'\t'
+  - type: keyword
+    value: "void"
+  - type: keyword
+    value: "while"
+  - type: keyword
+    value: "with"
+  - type: keyword
+    value: "yield"
+
+  # **Identifiers** (After keywords to prevent keywords from being matched as identifiers)
   - type: identifier
-    pattern: "[a-zA-Z_][a-zA-Z0-9_]*"
-  - type: number
-    pattern: r'\d'
+    pattern: "\\b[a-zA-Z_$][a-zA-Z0-9_$]*\\b"
+
+  # **Whitespace and Newlines**
+  - type: whitespace
+    pattern: "\\s+"

@@ -1,62 +1,93 @@
-import yaml
 import re
-from lexers.universal_lexer_checks import include_character, is_in_bounds, is_not_delimiter
-# when we search through the input, how do we know to "check" what we currently have? use a slice delimiter!
-DEFAULT_SLICE_DELIMITER=" \t\n\r;(){}[]="
 
-def get_string_slice(input_text, current_position, delimiters=DEFAULT_SLICE_DELIMITER):
-    slice =''
-    while is_in_bounds(input_text, current_position) and is_not_delimiter(input, current_position)
-    slice += input[current_position]
-    current_position += 1
-    return slice, current_position
+DEFAULT_SLICE_DELIMITER = " \t\n\r;(){}[]="
 
-def match_token(input_text, current_position, token):
-    if 'value' in token:
-        key_length = len(token['value'])
-        if input_text[current_position:current_position + key_length] == token['value']:
-            return token['value'], current_position + key_length
-    elif 'pattern' in token:
-        # Handle regex pattern match (for tokens with 'pattern')
-        pattern = token['pattern']
-        match = re.match(pattern, input_text[current_position:])
-        if match:
-            return match.group(0), current_position + len(match.group(0))
-    return '', current_position
+def is_delimiter(input, current_position, delimiters):
+    return input[current_position] in delimiters
 
-def process_tokens(input_text, current_position, tokens):
-    while current_position < len(input_text):
-        for token in tokens:
+def is_in_bounds(input, current_position):
+    """
+    Check if the current position is within the bounds of the input string.
+    
+    Parameters:
+    -----------
+    input : str
+        The input string to check.
+    current_position : int
+        The current index in the input string.
 
-            # check if we have a value
-            if token['value']:
-                token_value = token['value']
+    Returns:
+    --------
+    bool
+        True if current_position is within bounds, False otherwise.
+    """
+    return current_position < len(input)
 
-                # Check for matching key (single or multi-character)
-                result, new_position = include_character(input_text, current_position, token_value)
-                if result:
-                    print(f"Matched: {result}")
-                    current_position = new_position
-                    break
-            else
-                # also need to check the pattern and check that
-
-
-        # If no match was found, move to the next character
+def get_string_slice(input_text, current_position, delimiters):
+    """
+    Slice the input string until a delimiter is found.
+    
+    Parameters:
+    -----------
+    input_text : str
+        The full input string being tokenized.
+    current_position : int
+        The current position in the input string from which to start slicing.
+    delimiters : str
+        A string containing all characters that should be treated as delimiters.
+    
+    Returns:
+    --------
+    tuple
+        A tuple containing:
+        - slice (str): The slice of the input text up to the first delimiter.
+        - current_position (int): The updated position after the slice.
+    """
+    slice_text = ''
+    
+    while is_in_bounds(input_text, current_position) and not is_delimiter(input_text, current_position, delimiters):
+        slice_text += input_text[current_position]
         current_position += 1
+    
+    return slice_text, current_position
 
-# Example YAML tokens (this would come from your YAML config)
-yaml_tokens = """
-tokens:
-  - value: "="
-  - value: "+"
-  - value: "=="
-  - value: "!="
-"""
-tokens_config = yaml.safe_load(yaml_tokens)['tokens']
+def process_tokens(input_text, current_position, lexer_config):
+    value = ''
+    token_type = ''
+    new_position = current_position
+    # print('analysing:', repr(input_text[current_position]))
+    matched = False
 
-# Example input
-input_text = "a == b + c != d"
+    for token in lexer_config['tokens']:
+        if 'value' in token:
+            token_value = token['value']
+            proposed_value = input_text[current_position:current_position + len(token_value)]
+            if proposed_value == token_value:
+                value = token_value
+                token_type = token['type']
+                current_position += len(token_value)
+                matched = True
+                break
 
-# Process the tokens
-process_tokens(input_text, 0, tokens_config)
+        elif 'pattern' in token:
+            slice_text, new_position = get_string_slice(input_text, current_position, lexer_config['delimiters'])
+            match = re.match(token['pattern'], slice_text)
+            if match:
+                token_type = token['type']
+                value = match.group(0)
+                current_position = new_position
+                matched = True
+                break
+
+    if not matched:
+
+        if is_delimiter(input_text, current_position, lexer_config['delimiters']):
+            # Skip over the delimiter without error
+            current_position += 1
+        else:
+            print('Lexical analysis config could not determine character at position', current_position)
+            current_position += 1
+        ### print('nothing found...')
+        return None, current_position
+
+    return {'value': value, 'type': token_type}, current_position

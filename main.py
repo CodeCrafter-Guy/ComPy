@@ -1,13 +1,12 @@
 import tokenizer
 import argparse
-import yaml;
-
-# tokens = tokenizer.tokenize("function (test) { const a = 123; b = \"test\"}", javascript_matchers)
+import yaml
+from lexers.lexer import process_tokens
 
 def read_file(file_path):
     """Reads the contents of a file and returns it as a string."""
-    with open(file_path, encoding="utf-8") as f:
-        read_data = f.read()
+    with open(file_path, encoding="utf-8") as file:
+        read_data = file.read()
     return read_data
 
 def read_lexer_config(config_file_name):
@@ -31,8 +30,7 @@ def main():
     input_text = read_file(args.input_file)
     lexer_config = read_lexer_config(args.lexer_config)
     
-    # Tokenize using the input and lexer configuration
-    tokens = tokenizer.tokenize(input_text, lexer_config)
+    tokens = tokenizer.tokenize(input_text, lexer_config, process_tokens)
     
     # Print tokens
     print(tokens)
