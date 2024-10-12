@@ -10,3 +10,5 @@ def tokenize(input, token_matcher):
         else:
             current_position += 1
     return tokens
+
+tokens = tokenize("function (test) { const a = 123; b = \"test\"}", javascript_matchers)

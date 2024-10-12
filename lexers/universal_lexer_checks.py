@@ -11,6 +11,9 @@ ASTRIX = r'\*'
 ASSIGNABLE_CHARACTERS = r'[^\s\n\t\r,;(){}[\]=]'
 SPECIAL_CHARACTERS = r'[^a-zA-Z0-9_; \s\n\t\r]'
 
+def is_not_delimiter(input, current_position):
+    char = input[current_position]
+    return bool(re.match(TAB, char) or re.match(CARRIAGE_RETURN, char) or re.match(WHITESPACE, char) or re.match(EOL, char) )
 
 def includes(array, value):
     """
