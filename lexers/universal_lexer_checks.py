@@ -4,6 +4,31 @@ NUMBERS = r'\d'
 WHITESPACE = r'\s'
 LETTERS = r'[a-zA-Z]'
 
+CARRIAGE_RETURN = r'\n'
+TAB = r'\t'
+EOL = r'\r'
+ASTRIX = r'\*'
+ASSIGNABLE_CHARACTERS = r'[^\s\n\t\r,;(){}[\]=]'
+SPECIAL_CHARACTERS = r'[^a-zA-Z0-9_; \s\n\t\r]'
+
+
+def includes(array, value):
+    """
+    Check if the given value is present in the array (list).
+    
+    Parameters:
+    -----------
+    array : list
+        The list to search.
+    value : any
+        The value to look for in the array.
+
+    Returns:
+    --------
+    bool
+        True if the value is found in the array, otherwise False.
+    """
+    return value in array
 
 def is_in_bounds(input, current_position):
     """
@@ -76,6 +101,22 @@ def include_double_quote_strings(input, current_position):
 def include_single_quote_strings(input, current_position):
     return include_string(input, current_position, "'")
 
+def include_keyword(input, current_position, keywords):
+    // todo
+
+
+def include_single_key_character(input, current_position, key):
+    if input[current_position] == key:
+        return input[current_position], current_position + 1
+    return '', current_position
+
+def include_character(input, current_position, key):
+    """Check if the current characters match the multi-character key."""
+    key_length = len(key)
+    if input[current_position:current_position + key_length] == key:
+        return input[current_position:current_position + key_length], current_position + key_length
+    return '', current_position
+
 def include_literal_strings(input, current_position):
     return include_string(input, current_position, '`')
 
@@ -113,3 +154,15 @@ def include_string(input, current_position, delimiter):
             raise ValueError(f"Unclosed {delimiter} found.")
     
     return extracted_value, current_position
+
+def include_assignment_operator(input, current_position, assignment_operators):
+    # Define valid assignment operators (single and multi-character)
+    # assignment_operators = ['=', '+=', '-=', '*=', '/=', '%=', '//=', '**=']
+
+    operator = ''
+    char = input[current_position]
+    while is_in_bounds(input, current_position) and includes(assignment_operators, char):
+        operator += char
+        current_position += 1
+
+
