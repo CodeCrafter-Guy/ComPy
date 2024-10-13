@@ -1,4 +1,4 @@
-# PyLex
+![Alt text](resources/pylex.png)
 
 Welcome to the PyLex! This project is a customizable lexer (tokenizer) designed to tokenize programming languages using a user-defined configuration. The key feature of this lexer is the ability to define how the tokenization process works through a YAML configuration file. You can either use the provided lexer configura
 
@@ -19,7 +19,7 @@ Welcome to the PyLex! This project is a customizable lexer (tokenizer) designed 
 Clone the Repository
 
 ```bash
-git clone https://github.com/yourusername/lexer-project.git
+git clone https://github.com/CodeCrafter-Guy/lexer-project.git
 cd lexer-project
 ```
 
@@ -236,7 +236,7 @@ Click the "Fork" button at the top-right corner of the repository page.
 Clone Your Fork
 
 ```bash
-git clone https://github.com/yourusername/lexer-project.git
+git clone https://github.com/CodeCrafter-Guy/lexer-project.git
 ```
 
 Create a Feature Branch
