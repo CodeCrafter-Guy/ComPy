@@ -1,0 +1,251 @@
+lexer_target: vyper
+delimiters: " \t\n\r;(){}[]:.,+-*/%&|^~<>!=#@\\'\""
+tokens:
+  # **Comments** (Placed first)
+  - type: single_line_comment
+    pattern: "#.*"
+
+  # **String Literals** (Before operators and punctuators)
+  - type: string_literal
+    pattern: "'([^'\\\\]|\\\\.)*'"
+  - type: string_literal
+    pattern: "\"([^\"\\\\]|\\\\.)*\""
+
+  # **Operators and Delimiters** (Multi-character before single-character)
+  - type: operator
+    value: "**="
+  - type: operator
+    value: "//="
+  - type: operator
+    value: ">>="
+  - type: operator
+    value: "<<="
+  - type: operator
+    value: "**"
+  - type: operator
+    value: "//"
+  - type: operator
+    value: ">>"
+  - type: operator
+    value: "<<"
+  - type: operator
+    value: "+="
+  - type: operator
+    value: "-="
+  - type: operator
+    value: "*="
+  - type: operator
+    value: "/="
+  - type: operator
+    value: "%="
+  - type: operator
+    value: "&="
+  - type: operator
+    value: "|="
+  - type: operator
+    value: "^="
+  - type: operator
+    value: "=="
+  - type: operator
+    value: "!="
+  - type: operator
+    value: "<="
+  - type: operator
+    value: ">="
+  - type: operator
+    value: "->"
+  - type: operator
+    value: "++"
+  - type: operator
+    value: "--"
+  - type: operator
+    value: "**"
+  - type: operator
+    value: "+"
+  - type: operator
+    value: "-"
+  - type: operator
+    value: "*"
+  - type: operator
+    value: "/"
+  - type: operator
+    value: "%"
+  - type: operator
+    value: "="
+  - type: operator
+    value: "<"
+  - type: operator
+    value: ">"
+  - type: operator
+    value: "~"
+  - type: operator
+    value: "^"
+  - type: operator
+    value: "|"
+  - type: operator
+    value: "&"
+  - type: operator
+    value: "@"
+  - type: operator
+    value: "!"
+  - type: operator
+    value: ":="  # Walrus operator
+
+  # **Punctuators**
+  - type: punctuator
+    value: "("
+  - type: punctuator
+    value: ")"
+  - type: punctuator
+    value: "["
+  - type: punctuator
+    value: "]"
+  - type: punctuator
+    value: "{"
+  - type: punctuator
+    value: "}"
+  - type: punctuator
+    value: ","
+  - type: punctuator
+    value: ":"
+  - type: punctuator
+    value: "."
+  - type: punctuator
+    value: ";"
+
+  # **Keywords** (Before identifiers)
+  - type: keyword
+    value: "and"
+  - type: keyword
+    value: "assert"
+  - type: keyword
+    value: "break"
+  - type: keyword
+    value: "continue"
+  - type: keyword
+    value: "def"
+  - type: keyword
+    value: "elif"
+  - type: keyword
+    value: "else"
+  - type: keyword
+    value: "for"
+  - type: keyword
+    value: "if"
+  - type: keyword
+    value: "in"
+  - type: keyword
+    value: "is"
+  - type: keyword
+    value: "not"
+  - type: keyword
+    value: "or"
+  - type: keyword
+    value: "pass"
+  - type: keyword
+    value: "return"
+  - type: keyword
+    value: "self"
+  - type: keyword
+    value: "struct"
+  - type: keyword
+    value: "while"
+  - type: keyword
+    value: "event"
+  - type: keyword
+    value: "log"
+  - type: keyword
+    value: "send"
+  - type: keyword
+    value: "transfer"
+  - type: keyword
+    value: "throw"
+  - type: keyword
+    value: "constant"
+  - type: keyword
+    value: "public"
+  - type: keyword
+    value: "private"
+  - type: keyword
+    value: "external"
+  - type: keyword
+    value: "internal"
+  - type: keyword
+    value: "view"
+  - type: keyword
+    value: "pure"
+  - type: keyword
+    value: "payable"
+  - type: keyword
+    value: "memory"
+  - type: keyword
+    value: "storage"
+  - type: keyword
+    value: "indexed"
+  - type: keyword
+    value: "immutable"
+  - type: keyword
+    value: "nonpayable"
+
+  # **Built-in Types** (Before identifiers)
+  - type: built_in_type
+    value: "int128"
+  - type: built_in_type
+    value: "uint256"
+  - type: built_in_type
+    value: "bool"
+  - type: built_in_type
+    value: "address"
+  - type: built_in_type
+    value: "bytes32"
+  - type: built_in_type
+    value: "decimal"
+  - type: built_in_type
+    value: "bytes"
+  - type: built_in_type
+    value: "string"
+  - type: built_in_type
+    value: "fixed168x10"
+  - type: built_in_type
+    value: "ufixed168x10"
+
+  # **Boolean Literals**
+  - type: boolean_literal
+    value: "True"
+  - type: boolean_literal
+    value: "False"
+
+  # **None Literal**
+  - type: none_literal
+    value: "None"
+
+  # **Identifiers**
+  - type: identifier
+    pattern: "[a-zA-Z_][a-zA-Z0-9_]*"
+
+  # **Numeric Literals**
+  # Decimal numbers with optional exponent
+  - type: number
+    pattern: "\\b\\d+\\.\\d+([eE][+-]?\\d+)?\\b"
+  # Integers with optional exponent
+  - type: number
+    pattern: "\\b\\d+([eE][+-]?\\d+)?\\b"
+  # Hexadecimal numbers
+  - type: number
+    pattern: "\\b0x[0-9a-fA-F]+\\b"
+
+  # **Whitespace**
+  - type: whitespace
+    pattern: "\\s+"
+
+  # **Newlines** (for significant indentation)
+  - type: newline
+    pattern: "\\n+"
+
+  # **Indentation** (spaces or tabs at the beginning of a line)
+  - type: indentation
+    pattern: "^[ \\t]+"
+
+  # **Unknown Tokens** (Catch-all for error handling)
+  - type: unknown
+    pattern: "."
