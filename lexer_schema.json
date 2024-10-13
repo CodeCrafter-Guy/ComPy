@@ -1,0 +1,67 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": "Lexer Configuration Schema",
+    "type": "object",
+    "required": [
+        "lexer_target",
+        "delimiters",
+        "tokens",
+        "version"
+    ],
+    "properties": {
+        "version": {
+            "type": "string"
+        },
+        "lexer_target": {
+            "type": "string"
+        },
+        "delimiters": {
+            "type": "string"
+        },
+        "tokens": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "oneOf": [
+                    {
+                        "required": [
+                            "type",
+                            "value"
+                        ],
+                        "properties": {
+                            "type": {
+                                "type": "string"
+                            },
+                            "value": {
+                                "type": "string"
+                            },
+                            "pattern": {
+                                "type": "string"
+                            }
+                        },
+                        "additionalProperties": false
+                    },
+                    {
+                        "required": [
+                            "type",
+                            "pattern"
+                        ],
+                        "properties": {
+                            "type": {
+                                "type": "string"
+                            },
+                            "value": {
+                                "type": "string"
+                            },
+                            "pattern": {
+                                "type": "string"
+                            }
+                        },
+                        "additionalProperties": false
+                    }
+                ]
+            }
+        }
+    },
+    "additionalProperties": false
+}

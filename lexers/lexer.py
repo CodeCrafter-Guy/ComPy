@@ -126,7 +126,7 @@ def process_tokens(input_text, current_position, lexer_config):
             # Skip over the delimiter without error
             current_position += 1
         else:
-            print(f"Lexical analysis config could not determine character at position {current_position}: '{input_text[current_position]}'")
+            print(f"Lexical analysis config could not determine character at position {current_position}")
             current_position += 1  # Skip the character
 
     return {'value': value, 'type': token_type} if matched else None, current_position

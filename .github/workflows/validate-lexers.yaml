@@ -1,0 +1,58 @@
+name: Validate Lexer Config
+
+on:
+    pull_request:
+        branches:
+            - master
+            - main
+            - develop
+
+jobs:
+    validate:
+        runs-on: ubuntu-latest
+
+        steps:
+            - name: Checkout repository content
+            uses: actions/checkout@v3
+
+            - name: Set up Python
+            uses: actions/setup-python@v4
+            with:
+                python-version: '3.x'
+        
+            - name: Install dependencies from requirements.txt
+                run: |
+                python -m pip install --upgrade pip
+                pip install -r requirements.txt
+
+            - name: Check lexer schemas are valid
+              id: check-schemas
+              run: |
+                  {
+                    echo 'VALIDATION_RESULTS<<EOF'
+                    python validate_yaml.py
+                    echo EOF
+                  } >> "$GITHUB_OUTPUT"
+                  npm run failure-test
+
+            - uses: mshick/add-pr-comment@v2
+              if: failure()
+              with:
+                  message: |
+                      ❌ Partner submission failed. Here are the reasons why:
+                      ```
+                      ${{ steps.check-partners.outputs.VALIDATION_RESULTS }}
+                      ```
+                      Please correct the issues and resubmit.
+
+            - name: Add label if valid
+              if: ${{ success() && contains(github.event.pull_request.title, 'Add ') && contains(github.event.pull_request.title, 'to Partner Registry') }}
+              uses: actions-ecosystem/action-add-labels@v1
+              with:
+                  github_token: ${{ secrets.GITHUB_TOKEN }}
+                  labels: 'new-partner'
+
+            - uses: mshick/add-pr-comment@v2
+              with:
+                  message: |
+                      🚀 Your PR passed validity checks and is awaiting approval.

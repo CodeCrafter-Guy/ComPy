@@ -9,10 +9,7 @@ Welcome to the PyLex! This project is a customizable lexer (tokenizer) designed 
 -   Pattern Matching with Regular Expressions: Use regex patterns for flexible token matching.
 -   Easy to Extend: Add new token types or modify existing ones without changing the core lexer code.
 
-### Prerequisites
-
--   Python 3.6 or higher
--   PyYAML library for parsing YAML files.
+**Please note this is an early concept and some languages have only been tested with "hello world" examples. If you would like to update the sanity_tests or the lexer_config yaml feel free to submit a pr!**
 
 ### Installation
 
