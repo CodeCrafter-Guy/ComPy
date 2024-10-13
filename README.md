@@ -52,6 +52,12 @@ You can run the lexer using the `main.py` script, providing the path to the inpu
 python main.py path/to/input_file.js path/to/lexer_config.yaml
 ```
 
+eg:
+
+```bash
+python main.py my/javascript.js lexers/javascript.yaml
+```
+
 #### Lexer Configuration YAML File
 
 The lexer uses a YAML file to define how tokenization works. This file specifies:
