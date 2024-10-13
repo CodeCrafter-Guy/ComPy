@@ -36,8 +36,6 @@ def validate_all():
     if error_list:
         with open('validation_output.txt', 'w') as f:
             print('\n'.join(error_list))
-    else:
-        print("All lexers validated successfully.")
     return error_list
 
 if __name__ == "__main__":
