@@ -1,27 +1,29 @@
+lexer_target: typescript
 version: 1.0.0
-lexer_target: javascript
-delimiters: " \t\n\r;(){}[]+=-*/%&|^!<>?:.,"
+delimiters: " \t\n\r;(){}[]+=-*/%&|^!<>?:.,'\"`~#@"
 tokens:
-  # **Comments** (Place before operators to prevent conflicts with '/')
+  # **Comments** (Place first)
   - type: multi_line_comment
     pattern: "/\\*[^*]*\\*+(?:[^/*][^*]*\\*+)*/"
   - type: single_line_comment
     pattern: "//.*"
 
-  # **String Literals** (Place before punctuators and operators)
-  # Double-quoted string literal
+  # **String Literals** (Before operators and punctuators)
+  # Template Literals with Interpolation
+  - type: template_literal
+    pattern: "`([^`\\\\]|\\\\.|\\$\\{[^}]*\\})*`"
+  # Double-quoted String Literals
   - type: string_literal
-    pattern: '"([^"\\\\]|\\\\.)*"'
-  # Single-quoted string literal
+    pattern: "\"([^\"\\\\]|\\\\.)*\""
+  # Single-quoted String Literals
   - type: string_literal
     pattern: "'([^'\\\\]|\\\\.)*'"
-  # Template literals (backticks)
-  - type: template_literal_start
-    value: "`"
-  - type: template_literal_end
-    value: "`"
 
-  # **Operators** (Multi-character operators before single-character operators)
+  # **Regular Expressions** (Placed before operators)
+  - type: regular_expression
+    pattern: "/([^/\\\\]|\\\\.)+/[gimsuy]*"
+
+  # **Operators** (Multi-character operators before single-character ones)
   - type: operator
     value: "==="
   - type: operator
@@ -29,9 +31,9 @@ tokens:
   - type: operator
     value: ">>>="
   - type: operator
-    value: "<<="
-  - type: operator
     value: ">>="
+  - type: operator
+    value: "<<="
   - type: operator
     value: "**="
   - type: operator
@@ -75,6 +77,10 @@ tokens:
   - type: operator
     value: "<<"
   - type: operator
+    value: "??"
+  - type: operator
+    value: "?."
+  - type: operator
     value: "&"
   - type: operator
     value: "|"
@@ -106,45 +112,42 @@ tokens:
     value: ":"
   - type: operator
     value: "."
-
-  # **Punctuators** (Multi-character punctuators before single-character punctuators)
-  - type: punctuator
+  - type: operator
     value: "..."
-  - type: open_code_block
+
+  # **Punctuators**
+  - type: punctuator
     value: "{"
-  - type: closed_code_block
+  - type: punctuator
     value: "}"
-  - type: open_parenthesis
+  - type: punctuator
     value: "("
-  - type: closed_parenthesis
+  - type: punctuator
     value: ")"
-  - type: open_square_bracket
+  - type: punctuator
     value: "["
-  - type: closed_square_bracket
+  - type: punctuator
     value: "]"
-  - type: end_of_statement
+  - type: punctuator
     value: ";"
   - type: punctuator
     value: ","
 
-  # **Literals**
-  # Numeric literals (Place floating-point patterns before integer patterns)
-  - type: float
-    pattern: "\\b\\d+\\.\\d*([eE][+-]?\\d+)?\\b"
-  - type: number
-    pattern: "\\b\\d+\\b"
-
-  # Boolean literals
-  - type: boolean_literal
-    value: "true"
-  - type: boolean_literal
-    value: "false"
-
-  # Null literal
-  - type: null_literal
-    value: "null"
-
-  # **Keywords** (No specific order, but ensure they are before identifiers)
+  # **Keywords** (Place before identifiers)
+  - type: keyword
+    value: "abstract"
+  - type: keyword
+    value: "any"
+  - type: keyword
+    value: "as"
+  - type: keyword
+    value: "asserts"
+  - type: keyword
+    value: "async"
+  - type: keyword
+    value: "await"
+  - type: keyword
+    value: "boolean"
   - type: keyword
     value: "break"
   - type: keyword
@@ -156,9 +159,11 @@ tokens:
   - type: keyword
     value: "const"
   - type: keyword
+    value: "constructor"
+  - type: keyword
     value: "continue"
   - type: keyword
-    value: "debugger"
+    value: "declare"
   - type: keyword
     value: "default"
   - type: keyword
@@ -168,41 +173,103 @@ tokens:
   - type: keyword
     value: "else"
   - type: keyword
+    value: "enum"
+  - type: keyword
     value: "export"
   - type: keyword
     value: "extends"
+  - type: keyword
+    value: "false"
   - type: keyword
     value: "finally"
   - type: keyword
     value: "for"
   - type: keyword
+    value: "from"
+  - type: keyword
     value: "function"
   - type: keyword
+    value: "get"
+  - type: keyword
     value: "if"
+  - type: keyword
+    value: "implements"
   - type: keyword
     value: "import"
   - type: keyword
     value: "in"
   - type: keyword
+    value: "infer"
+  - type: keyword
     value: "instanceof"
+  - type: keyword
+    value: "interface"
+  - type: keyword
+    value: "is"
+  - type: keyword
+    value: "keyof"
   - type: keyword
     value: "let"
   - type: keyword
+    value: "module"
+  - type: keyword
+    value: "namespace"
+  - type: keyword
+    value: "never"
+  - type: keyword
     value: "new"
   - type: keyword
+    value: "null"
+  - type: keyword
+    value: "number"
+  - type: keyword
+    value: "object"
+  - type: keyword
+    value: "package"
+  - type: keyword
+    value: "private"
+  - type: keyword
+    value: "protected"
+  - type: keyword
+    value: "public"
+  - type: keyword
+    value: "readonly"
+  - type: keyword
+    value: "require"
+  - type: keyword
+    value: "global"
+  - type: keyword
     value: "return"
+  - type: keyword
+    value: "set"
+  - type: keyword
+    value: "static"
+  - type: keyword
+    value: "string"
   - type: keyword
     value: "super"
   - type: keyword
     value: "switch"
   - type: keyword
+    value: "symbol"
+  - type: keyword
     value: "this"
   - type: keyword
     value: "throw"
   - type: keyword
+    value: "true"
+  - type: keyword
     value: "try"
   - type: keyword
+    value: "type"
+  - type: keyword
     value: "typeof"
+  - type: keyword
+    value: "undefined"
+  - type: keyword
+    value: "unique"
+  - type: keyword
+    value: "unknown"
   - type: keyword
     value: "var"
   - type: keyword
@@ -214,10 +281,31 @@ tokens:
   - type: keyword
     value: "yield"
 
-  # **Identifiers** (After keywords to prevent keywords from being matched as identifiers)
+  # **Identifiers**
   - type: identifier
-    pattern: "\\b[a-zA-Z_$][a-zA-Z0-9_$]*\\b"
+    pattern: "[a-zA-Z_$][a-zA-Z0-9_$]*"
 
-  # **Whitespace and Newlines**
+  # **Numeric Literals**
+  # Binary Literals
+  - type: number
+    pattern: "\\b0[bB][01]+\\b"
+  # Octal Literals
+  - type: number
+    pattern: "\\b0[oO][0-7]+\\b"
+  # Hexadecimal Literals
+  - type: number
+    pattern: "\\b0[xX][0-9a-fA-F]+\\b"
+  # Floating-Point Literals
+  - type: number
+    pattern: "\\b\\d+\\.\\d*([eE][+-]?\\d+)?\\b"
+  # Integer Literals
+  - type: number
+    pattern: "\\b\\d+\\b"
+
+  # **Whitespace**
   - type: whitespace
     pattern: "\\s+"
+
+  # **Unknown Tokens**
+  - type: unknown
+    pattern: "."

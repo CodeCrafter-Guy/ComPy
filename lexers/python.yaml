@@ -1,0 +1,225 @@
+lexer_target: python
+version: 1.0.0
+delimiters: " \t\n\r;(){}[]:.,+-*/%&|^~<>!=#@\\'\""
+tokens:
+  # **Comments** (Place before other tokens to prevent conflicts)
+  - type: multi_line_comment
+    pattern: "'''(.|\\n)*?'''"
+  - type: multi_line_comment
+    pattern: '"""(.|\\n)*?"""'
+  - type: single_line_comment
+    pattern: "#.*"
+
+  # **Multi-line Strings (Triple Quotes)**
+  # Placed after comments but before single-line strings
+  # Already covered by multi_line_comment patterns; no need to repeat
+
+  # **String Literals** (Place before operators and punctuators)
+  - type: string_literal
+    pattern: "'([^'\\\\]|\\\\.)*'"
+  - type: string_literal
+    pattern: '"([^"\\\\]|\\\\.)*"'
+
+  # **Operators and Delimiters** (Multi-character before single-character)
+  - type: operator
+    value: "**="
+  - type: operator
+    value: "//="
+  - type: operator
+    value: ">>="
+  - type: operator
+    value: "<<="
+  - type: operator
+    value: "**"
+  - type: operator
+    value: "//"
+  - type: operator
+    value: ">>"
+  - type: operator
+    value: "<<"
+  - type: operator
+    value: "+="
+  - type: operator
+    value: "-="
+  - type: operator
+    value: "*="
+  - type: operator
+    value: "/="
+  - type: operator
+    value: "%="
+  - type: operator
+    value: "&="
+  - type: operator
+    value: "|="
+  - type: operator
+    value: "^="
+  - type: operator
+    value: "=="
+  - type: operator
+    value: "!="
+  - type: operator
+    value: "<="
+  - type: operator
+    value: ">="
+  - type: operator
+    value: "->"
+  - type: operator
+    value: "**"
+  - type: operator
+    value: "+"
+  - type: operator
+    value: "-"
+  - type: operator
+    value: "*"
+  - type: operator
+    value: "/"
+  - type: operator
+    value: "%"
+  - type: operator
+    value: "="
+  - type: operator
+    value: "<"
+  - type: operator
+    value: ">"
+  - type: operator
+    value: "~"
+  - type: operator
+    value: "^"
+  - type: operator
+    value: "|"
+  - type: operator
+    value: "&"
+  - type: operator
+    value: "@"
+  - type: operator
+    value: "!"
+  - type: operator
+    value: ":"
+
+  # **Punctuators**
+  - type: punctuator
+    value: "("
+  - type: punctuator
+    value: ")"
+  - type: punctuator
+    value: "["
+  - type: punctuator
+    value: "]"
+  - type: punctuator
+    value: "{"
+  - type: punctuator
+    value: "}"
+  - type: punctuator
+    value: ","
+  - type: punctuator
+    value: "."
+  - type: punctuator
+    value: ";"
+
+  # **Keywords** (Place before identifiers)
+  - type: keyword
+    value: "False"
+  - type: keyword
+    value: "None"
+  - type: keyword
+    value: "True"
+  - type: keyword
+    value: "and"
+  - type: keyword
+    value: "as"
+  - type: keyword
+    value: "assert"
+  - type: keyword
+    value: "async"
+  - type: keyword
+    value: "await"
+  - type: keyword
+    value: "break"
+  - type: keyword
+    value: "class"
+  - type: keyword
+    value: "continue"
+  - type: keyword
+    value: "def"
+  - type: keyword
+    value: "del"
+  - type: keyword
+    value: "elif"
+  - type: keyword
+    value: "else"
+  - type: keyword
+    value: "except"
+  - type: keyword
+    value: "finally"
+  - type: keyword
+    value: "for"
+  - type: keyword
+    value: "from"
+  - type: keyword
+    value: "global"
+  - type: keyword
+    value: "if"
+  - type: keyword
+    value: "import"
+  - type: keyword
+    value: "in"
+  - type: keyword
+    value: "is"
+  - type: keyword
+    value: "lambda"
+  - type: keyword
+    value: "nonlocal"
+  - type: keyword
+    value: "not"
+  - type: keyword
+    value: "or"
+  - type: keyword
+    value: "pass"
+  - type: keyword
+    value: "raise"
+  - type: keyword
+    value: "return"
+  - type: keyword
+    value: "try"
+  - type: keyword
+    value: "while"
+  - type: keyword
+    value: "with"
+  - type: keyword
+    value: "yield"
+
+  # **Boolean and None Literals** (After keywords)
+  - type: boolean_literal
+    value: "True"
+  - type: boolean_literal
+    value: "False"
+  - type: none_literal
+    value: "None"
+
+  # **Identifiers**
+  - type: identifier
+    pattern: "[a-zA-Z_][a-zA-Z0-9_]*"
+
+  # **Numeric Literals**
+  # Floating-point numbers before integers
+  - type: number
+    pattern: "\\b\\d+\\.\\d*([eE][+-]?\\d+)?\\b"
+  - type: number
+    pattern: "\\b\\.\\d+([eE][+-]?\\d+)?\\b"
+  - type: number
+    pattern: "\\b\\d+([eE][+-]?\\d+)?\\b"
+  # Hexadecimal, octal, and binary literals
+  - type: number
+    pattern: "\\b0[bB][01]+\\b"
+  - type: number
+    pattern: "\\b0[oO][0-7]+\\b"
+  - type: number
+    pattern: "\\b0[xX][0-9a-fA-F]+\\b"
+
+  # **Whitespace and Newlines** (Place after tokens that can include whitespace)
+  - type: whitespace
+    pattern: "\\s+"
+
+  # **Unknown Tokens** (Catch-all pattern for error handling)
+  - type: unknown
+    pattern: "."

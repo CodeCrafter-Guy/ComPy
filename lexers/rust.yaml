@@ -1,0 +1,248 @@
+lexer_target: rust
+version: 1.0.0
+delimiters: " \t\n\r;(){}[]+=-*/%&|^!<>?:.,@#$`~"
+tokens:
+  # **Comments** (Placed first to prevent conflicts with operators like '/')
+  - type: multi_line_comment
+    pattern: '/\\*[^*]*\\*+(?:[^/*][^*]*\\*+)*/'
+  - type: single_line_comment
+    pattern: '//.*'
+
+  # **String and Character Literals** (Before operators and punctuators)
+  # Raw String Literals (handles up to two '#' signs for simplicity)
+  - type: raw_string_literal
+    pattern: 'r(#*)"(.*?)"\\1'
+  - type: raw_byte_string_literal
+    pattern: 'br(#*)"(.*?)"\\1'
+
+  # Regular String Literals
+  - type: string_literal
+    pattern: '"([^"\\\\]|\\\\.)*"'
+  - type: byte_string_literal
+    pattern: 'b"([^"\\\\]|\\\\.)*"'
+
+  # Character Literals
+  - type: char_literal
+    pattern: "'([^'\\\\]|\\\\.)'"
+  - type: byte_char_literal
+    pattern: "b'([^'\\\\]|\\\\.)'"
+
+  # **Operators** (Multi-character operators before single-character ones)
+  - type: operator
+    value: '<<='
+  - type: operator
+    value: '>>='
+  - type: operator
+    value: '=='
+  - type: operator
+    value: '!='
+  - type: operator
+    value: '>='
+  - type: operator
+    value: '<='
+  - type: operator
+    value: '+='
+  - type: operator
+    value: '-='
+  - type: operator
+    value: '*='
+  - type: operator
+    value: '/='
+  - type: operator
+    value: '%='
+  - type: operator
+    value: '&&'
+  - type: operator
+    value: '||'
+  - type: operator
+    value: '<<'
+  - type: operator
+    value: '>>'
+  - type: operator
+    value: '&='
+  - type: operator
+    value: '|='
+  - type: operator
+    value: '^='
+  - type: operator
+    value: '..='
+  - type: operator
+    value: '=>'
+  - type: operator
+    value: '->'
+  - type: operator
+    value: '..'
+  - type: operator
+    value: '::'
+
+  # Single-character Operators
+  - type: operator
+    value: '='
+  - type: operator
+    value: '>'
+  - type: operator
+    value: '<'
+  - type: operator
+    value: '!'
+  - type: operator
+    value: '+'
+  - type: operator
+    value: '-'
+  - type: operator
+    value: '*'
+  - type: operator
+    value: '/'
+  - type: operator
+    value: '%'
+  - type: operator
+    value: '&'
+  - type: operator
+    value: '|'
+  - type: operator
+    value: '^'
+  - type: operator
+    value: '~'
+  - type: operator
+    value: '?'
+  - type: operator
+    value: '@'
+
+  # **Punctuators** (Multi-character before single-character)
+  - type: punctuator
+    value: '...'
+  - type: punctuator
+    value: '::'
+  - type: punctuator
+    value: ','
+  - type: punctuator
+    value: ';'
+  - type: punctuator
+    value: ':'
+  - type: punctuator
+    value: '.'
+  - type: punctuator
+    value: '('
+  - type: punctuator
+    value: ')'
+  - type: punctuator
+    value: '['
+  - type: punctuator
+    value: ']'
+  - type: punctuator
+    value: '{'
+  - type: punctuator
+    value: '}'
+
+  # **Lifetimes** (Placed before identifiers to capture `'identifier`)
+  - type: lifetime
+    pattern: "'[a-zA-Z_][a-zA-Z0-9_]*"
+
+  # **Keywords** (Before identifiers to prevent misclassification)
+  - type: keyword
+    value: 'as'
+  - type: keyword
+    value: 'break'
+  - type: keyword
+    value: 'const'
+  - type: keyword
+    value: 'continue'
+  - type: keyword
+    value: 'crate'
+  - type: keyword
+    value: 'else'
+  - type: keyword
+    value: 'enum'
+  - type: keyword
+    value: 'extern'
+  - type: keyword
+    value: 'false'
+  - type: keyword
+    value: 'fn'
+  - type: keyword
+    value: 'for'
+  - type: keyword
+    value: 'if'
+  - type: keyword
+    value: 'impl'
+  - type: keyword
+    value: 'in'
+  - type: keyword
+    value: 'let'
+  - type: keyword
+    value: 'loop'
+  - type: keyword
+    value: 'match'
+  - type: keyword
+    value: 'mod'
+  - type: keyword
+    value: 'move'
+  - type: keyword
+    value: 'mut'
+  - type: keyword
+    value: 'pub'
+  - type: keyword
+    value: 'ref'
+  - type: keyword
+    value: 'return'
+  - type: keyword
+    value: 'self'
+  - type: keyword
+    value: 'Self'
+  - type: keyword
+    value: 'static'
+  - type: keyword
+    value: 'struct'
+  - type: keyword
+    value: 'super'
+  - type: keyword
+    value: 'trait'
+  - type: keyword
+    value: 'true'
+  - type: keyword
+    value: 'type'
+  - type: keyword
+    value: 'unsafe'
+  - type: keyword
+    value: 'use'
+  - type: keyword
+    value: 'where'
+  - type: keyword
+    value: 'while'
+  - type: keyword
+    value: 'async'
+  - type: keyword
+    value: 'await'
+  - type: keyword
+    value: 'dyn'
+
+  # **Identifiers**
+  - type: identifier
+    pattern: '[a-zA-Z_][a-zA-Z0-9_]*'
+
+  # **Numeric Literals**
+  # Hexadecimal Literals
+  - type: number
+    pattern: '\\b0x[0-9a-fA-F_]+\\b'
+  # Octal Literals
+  - type: number
+    pattern: '\\b0o[0-7_]+\\b'
+  # Binary Literals
+  - type: number
+    pattern: '\\b0b[01_]+\\b'
+  # Floating-Point Literals with Fractional Part
+  - type: number
+    pattern: '\\b\\d+(_\\d+)*\\.\\d+(_\\d+)*([eE][+-]?\\d+(_\\d+)*)?([fF]\\d+)?\\b'
+  # Floating-Point Literals with Exponent Only
+  - type: number
+    pattern: '\\b\\d+(_\\d+)*[eE][+-]?\\d+(_\\d+)*([fF]\\d+)?\\b'
+  # Integer Literals with Optional Type Suffix
+  - type: number
+    pattern: '\\b\\d+(_\\d+)*([uUiI](8|16|32|64|128|size))?\\b'
+
+  # **Whitespace**
+  - type: whitespace
+    pattern: '\\s+'
+
+  # **Unknown Tokens** (Catch-all for error handling)
+  - type: unknown
+    pattern: '.'

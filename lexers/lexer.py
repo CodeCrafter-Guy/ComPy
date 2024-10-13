@@ -1,7 +1,5 @@
 import re
 
-DEFAULT_SLICE_DELIMITER = " \t\n\r;(){}[]="
-
 def is_delimiter(input, current_position, delimiters):
     return input[current_position] in delimiters
 

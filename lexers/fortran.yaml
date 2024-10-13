@@ -1,0 +1,167 @@
+lexer_target: fortran
+version: 1.0.0
+delimiters: " \t\n\r;(){}[],+-*/%&|^!<>?:='\""
+tokens:
+  # **Comments** (Placed first)
+  - type: comment
+    pattern: "!.*"
+  - type: comment
+    pattern: "^[cC].*"
+
+  # **String Literals** (Before operators and punctuators)
+  - type: string_literal
+    pattern: "'([^']|'')*'"
+  - type: string_literal
+    pattern: "\"([^\"]|\"\")*\""
+
+  # **Operators** (Multi-character operators before single-character ones)
+  - type: operator
+    value: "**"
+  - type: operator
+    value: "//"
+  - type: operator
+    value: "=="
+  - type: operator
+    value: "/="
+  - type: operator
+    value: ">="
+  - type: operator
+    value: "<="
+  - type: operator
+    value: "="
+  - type: operator
+    value: "+"
+  - type: operator
+    value: "-"
+  - type: operator
+    value: "*"
+  - type: operator
+    value: "/"
+  - type: operator
+    value: "<"
+  - type: operator
+    value: ">"
+  - type: operator
+    value: ".EQ."
+  - type: operator
+    value: ".NE."
+  - type: operator
+    value: ".LT."
+  - type: operator
+    value: ".LE."
+  - type: operator
+    value: ".GT."
+  - type: operator
+    value: ".GE."
+  - type: operator
+    value: ".AND."
+  - type: operator
+    value: ".OR."
+  - type: operator
+    value: ".NOT."
+
+  # **Punctuators**
+  - type: punctuator
+    value: "("
+  - type: punctuator
+    value: ")"
+  - type: punctuator
+    value: ","
+  - type: punctuator
+    value: ":"
+  - type: punctuator
+    value: ";"
+
+  # **Keywords** (Before identifiers)
+  - type: keyword
+    value: "PROGRAM"
+  - type: keyword
+    value: "END"
+  - type: keyword
+    value: "FUNCTION"
+  - type: keyword
+    value: "SUBROUTINE"
+  - type: keyword
+    value: "CALL"
+  - type: keyword
+    value: "RETURN"
+  - type: keyword
+    value: "IF"
+  - type: keyword
+    value: "THEN"
+  - type: keyword
+    value: "ELSE"
+  - type: keyword
+    value: "ENDIF"
+  - type: keyword
+    value: "DO"
+  - type: keyword
+    value: "CONTINUE"
+  - type: keyword
+    value: "STOP"
+  - type: keyword
+    value: "INTEGER"
+  - type: keyword
+    value: "REAL"
+  - type: keyword
+    value: "DOUBLE PRECISION"
+  - type: keyword
+    value: "COMPLEX"
+  - type: keyword
+    value: "LOGICAL"
+  - type: keyword
+    value: "CHARACTER"
+  - type: keyword
+    value: "DIMENSION"
+  - type: keyword
+    value: "ALLOCATABLE"
+  - type: keyword
+    value: "ALLOCATE"
+  - type: keyword
+    value: "DEALLOCATE"
+  - type: keyword
+    value: "PARAMETER"
+  - type: keyword
+    value: "IMPLICIT"
+  - type: keyword
+    value: "NONE"
+  - type: keyword
+    value: "PRINT"
+  - type: keyword
+    value: "READ"
+  - type: keyword
+    value: "WRITE"
+  - type: keyword
+    value: "FORMAT"
+  - type: keyword
+    value: "GOTO"
+  - type: keyword
+    value: "PAUSE"
+  - type: keyword
+    value: "DATA"
+  - type: keyword
+    value: "MODULE"
+  - type: keyword
+    value: "USE"
+  - type: keyword
+    value: "INTERFACE"
+  - type: keyword
+    value: "OPERATOR"
+  - type: keyword
+    value: "CONTAINS"
+
+  # **Identifiers**
+  - type: identifier
+    pattern: "[a-zA-Z][a-zA-Z0-9_]*"
+
+  # **Numeric Literals**
+  - type: number
+    pattern: "\\b\\d+(\\.\\d+)?([eEdD][+-]?\\d+)?\\b"
+
+  # **Whitespace**
+  - type: whitespace
+    pattern: "\\s+"
+
+  # **Unknown Tokens**
+  - type: unknown
+    pattern: "."

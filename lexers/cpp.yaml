@@ -1,0 +1,318 @@
+lexer_target: cpp
+version: 1.0.0
+delimiters: " \t\n\r;(){}[]+=-*/%&|^!<>?:.,'\"#\\"
+tokens:
+  # **Comments** (Placed first)
+  - type: multi_line_comment
+    pattern: "/\\*[^*]*\\*+(?:[^/*][^*]*\\*+)*/"
+  - type: single_line_comment
+    pattern: "//.*"
+
+  # **Preprocessor Directives** (Before other tokens)
+  - type: preprocessor_directive
+    pattern: "#[^\n]*"
+
+  # **String and Character Literals** (Before operators and punctuators)
+  - type: string_literal
+    pattern: "\"([^\"\\\\]|\\\\.)*\""
+  - type: char_literal
+    pattern: "'([^'\\\\]|\\\\.)'"
+
+  # **Operators** (Multi-character operators before single-character ones)
+  - type: operator
+    value: "->*"
+  - type: operator
+    value: "->"
+  - type: operator
+    value: "::"
+  - type: operator
+    value: "++"
+  - type: operator
+    value: "--"
+  - type: operator
+    value: "=="
+  - type: operator
+    value: "!="
+  - type: operator
+    value: ">="
+  - type: operator
+    value: "<="
+  - type: operator
+    value: "&&"
+  - type: operator
+    value: "||"
+  - type: operator
+    value: "<<="
+  - type: operator
+    value: ">>="
+  - type: operator
+    value: "+="
+  - type: operator
+    value: "-="
+  - type: operator
+    value: "*="
+  - type: operator
+    value: "/="
+  - type: operator
+    value: "%="
+  - type: operator
+    value: "&="
+  - type: operator
+    value: "^="
+  - type: operator
+    value: "|="
+  - type: operator
+    value: "<<"
+  - type: operator
+    value: ">>"
+  - type: operator
+    value: ".*"
+  - type: operator
+    value: "+"
+
+  # Single-character Operators
+  - type: operator
+    value: "="
+  - type: operator
+    value: ">"
+  - type: operator
+    value: "<"
+  - type: operator
+    value: "!"
+  - type: operator
+    value: "~"
+  - type: operator
+    value: "-"
+  - type: operator
+    value: "*"
+  - type: operator
+    value: "/"
+  - type: operator
+    value: "%"
+  - type: operator
+    value: "&"
+  - type: operator
+    value: "|"
+  - type: operator
+    value: "^"
+  - type: operator
+    value: "?"
+
+  # **Punctuators**
+  - type: punctuator
+    value: ";"
+  - type: punctuator
+    value: ","
+  - type: punctuator
+    value: "("
+  - type: punctuator
+    value: ")"
+  - type: punctuator
+    value: "{"
+  - type: punctuator
+    value: "}"
+  - type: punctuator
+    value: "["
+  - type: punctuator
+    value: "]"
+  - type: punctuator
+    value: "."
+
+  # **Keywords** (Before identifiers)
+  - type: keyword
+    value: "alignas"
+  - type: keyword
+    value: "alignof"
+  - type: keyword
+    value: "and"
+  - type: keyword
+    value: "and_eq"
+  - type: keyword
+    value: "asm"
+  - type: keyword
+    value: "auto"
+  - type: keyword
+    value: "bitand"
+  - type: keyword
+    value: "bitor"
+  - type: keyword
+    value: "bool"
+  - type: keyword
+    value: "break"
+  - type: keyword
+    value: "case"
+  - type: keyword
+    value: "catch"
+  - type: keyword
+    value: "char"
+  - type: keyword
+    value: "char16_t"
+  - type: keyword
+    value: "char32_t"
+  - type: keyword
+    value: "class"
+  - type: keyword
+    value: "compl"
+  - type: keyword
+    value: "const"
+  - type: keyword
+    value: "constexpr"
+  - type: keyword
+    value: "const_cast"
+  - type: keyword
+    value: "continue"
+  - type: keyword
+    value: "decltype"
+  - type: keyword
+    value: "default"
+  - type: keyword
+    value: "delete"
+  - type: keyword
+    value: "do"
+  - type: keyword
+    value: "double"
+  - type: keyword
+    value: "dynamic_cast"
+  - type: keyword
+    value: "else"
+  - type: keyword
+    value: "enum"
+  - type: keyword
+    value: "explicit"
+  - type: keyword
+    value: "export"
+  - type: keyword
+    value: "extern"
+  - type: keyword
+    value: "false"
+  - type: keyword
+    value: "float"
+  - type: keyword
+    value: "for"
+  - type: keyword
+    value: "friend"
+  - type: keyword
+    value: "goto"
+  - type: keyword
+    value: "if"
+  - type: keyword
+    value: "inline"
+  - type: keyword
+    value: "int"
+  - type: keyword
+    value: "long"
+  - type: keyword
+    value: "mutable"
+  - type: keyword
+    value: "namespace"
+  - type: keyword
+    value: "new"
+  - type: keyword
+    value: "noexcept"
+  - type: keyword
+    value: "not"
+  - type: keyword
+    value: "not_eq"
+  - type: keyword
+    value: "nullptr"
+  - type: keyword
+    value: "operator"
+  - type: keyword
+    value: "or"
+  - type: keyword
+    value: "or_eq"
+  - type: keyword
+    value: "private"
+  - type: keyword
+    value: "protected"
+  - type: keyword
+    value: "public"
+  - type: keyword
+    value: "register"
+  - type: keyword
+    value: "reinterpret_cast"
+  - type: keyword
+    value: "return"
+  - type: keyword
+    value: "short"
+  - type: keyword
+    value: "signed"
+  - type: keyword
+    value: "sizeof"
+  - type: keyword
+    value: "static"
+  - type: keyword
+    value: "static_assert"
+  - type: keyword
+    value: "static_cast"
+  - type: keyword
+    value: "struct"
+  - type: keyword
+    value: "switch"
+  - type: keyword
+    value: "template"
+  - type: keyword
+    value: "this"
+  - type: keyword
+    value: "thread_local"
+  - type: keyword
+    value: "throw"
+  - type: keyword
+    value: "true"
+  - type: keyword
+    value: "try"
+  - type: keyword
+    value: "typedef"
+  - type: keyword
+    value: "typeid"
+  - type: keyword
+    value: "typename"
+  - type: keyword
+    value: "union"
+  - type: keyword
+    value: "unsigned"
+  - type: keyword
+    value: "using"
+  - type: keyword
+    value: "virtual"
+  - type: keyword
+    value: "void"
+  - type: keyword
+    value: "volatile"
+  - type: keyword
+    value: "wchar_t"
+  - type: keyword
+    value: "while"
+  - type: keyword
+    value: "xor"
+  - type: keyword
+    value: "xor_eq"
+
+  # **Identifiers**
+  - type: identifier
+    pattern: "[a-zA-Z_][a-zA-Z0-9_]*"
+
+  # **Numeric Literals**
+  # Hexadecimal Literals
+  - type: number
+    pattern: "\\b0[xX][0-9a-fA-F]+\\b"
+  # Binary Literals (since C++14)
+  - type: number
+    pattern: "\\b0[bB][01]+\\b"
+  # Octal Literals
+  - type: number
+    pattern: "\\b0[0-7]+\\b"
+  # Floating-Point Literals
+  - type: number
+    pattern: "\\b\\d+\\.\\d*([eE][+-]?\\d+)?[fFlL]?\\b"
+  # Integer Literals
+  - type: number
+    pattern: "\\b\\d+[uUlL]*\\b"
+
+  # **Whitespace**
+  - type: whitespace
+    pattern: "\\s+"
+
+  # **Unknown Tokens**
+  - type: unknown
+    pattern: "."
