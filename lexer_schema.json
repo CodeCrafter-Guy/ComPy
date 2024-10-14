@@ -6,9 +6,16 @@
         "lexer_target",
         "delimiters",
         "tokens",
-        "version"
+        "version",
+        "delimiter_check_for_types"
     ],
     "properties": {
+        "delimiter_check_for_types": {
+            "type": "array",
+            "items": {
+                "type": "string"
+            }
+        },
         "version": {
             "type": "string"
         },

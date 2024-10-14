@@ -1,6 +1,6 @@
 ![Pylex logo](resources/pylex.png)
 
-Welcome to PyLex! A customizable lexer (tokenizer) designed to tokenize programming languages using a user-defined configuration. The key feature of this lexer is the ability to define how the tokenization process works through a YAML configuration file. You can either use the provided lexer configura
+Welcome to PyLex! A customizable lexer (tokenizer) designed to tokenize programming languages using a user-defined configuration. The key feature of this lexer is the ability to define how the tokenization process works through a YAML configuration file. You can either use the provided lexer configuration, or role your own by following the provided [schema](lexer_schema.json)
 
 ### Features
 
@@ -24,7 +24,7 @@ Welcome to PyLex! A customizable lexer (tokenizer) designed to tokenize programm
 
 ![we need you poster](resources/needyou.png)
 
-Well... ahem... I need you really, its quite a big project and if you are interested in taking part, please do let me know! even if you dont write in python, we could use example code in the `sanity_tests/` folder to actually test the lexer properly. Its initial phase has hellow world code examples taken from respective official documentation and doesn't help us to capture all the different common scenarios.
+Well... ahem... I need you really, its quite a big project and if you are interested in taking part, please do let me know! Even if you dont write in python, we could use example code in the `sanity_tests/` folder to actually test the lexer properly. Its initial phase has `hellow world` code examples taken from respective official documentation and doesn't help us to capture all the different common day to day scenarios.
 
 With ~~our python army, we could take over the WORLD!~~ help from the lovely open source community. We could build and develop a lexer that supports multiple languages!
 
@@ -41,23 +41,10 @@ git clone https://github.com/CodeCrafter-Guy/PyLex.git
 cd PyLex
 ```
 
-Create a Virtual Environment (Optional but Recommended)
-
-```bash
-python -m venv venv
-source venv/bin/activate # On Windows use `venv\Scripts\activate`
-```
-
 ### Install Dependencies
 
 ```bash
 pip install -r requirements.txt
-```
-
-If a requirements.txt file is not provided, install PyYAML directly:
-
-```bash
-pip install PyYAML
 ```
 
 ### Usage
@@ -67,14 +54,26 @@ pip install PyYAML
 You can run the lexer using the `main.py` script, providing the path to the input file (the code you want to tokenize) and the lexer configuration YAML file.
 
 ```bash
-python main.py path/to/input_file.js path/to/lexer_config.yaml
+python main.py path/to/input_file.js lexers/javascript.yaml
 ```
 
-eg:
+### Available lexers
+
+There are quite a few lexers, however please note they are a best guess effort during this early phase and may not capture and properly tokenize all input. The most tested configs are:
+`rust.yaml`, `python.yaml` and `javascript.yaml`
 
 ```bash
-python main.py my/javascript.js lexers/javascript.yaml
+lexers/
+├── javascript.yaml
+├── cpp.yaml
+├── rust.yaml
+├── fortran.yaml
+├── python.yaml
+├── typescript.yaml
+├── vyper.yaml
 ```
+
+There may be more lexers added not listed above during the early phase of this project. check the [folder](lexers/) for the complete yaml list
 
 ## How it works
 

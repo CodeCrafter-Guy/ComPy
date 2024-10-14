@@ -1,12 +1,27 @@
 version: 1.0.0
 lexer_target: javascript
-delimiters: " \t\n\r;(){}[]+=-*/%&|^!<>?:.,"
+delimiters: " ;(){}[]+=-*/%&|^!?:.,"
+delimiter_check_for_types:
+  - keyword
+  - identifier
+  - number
+  - boolean_literal
+  - null_literal
+  - built_in_type
+  - none_literal
+  - string_literal
+
 tokens:
   # **Comments** (Place before operators to prevent conflicts with '/')
   - type: multi_line_comment
     pattern: "/\\*[^*]*\\*+(?:[^/*][^*]*\\*+)*/"
   - type: single_line_comment
     pattern: "//.*"
+
+  - type: open_element_tag
+    pattern: "<[a-zA-Z]+>"
+  - type: close_element_tag
+    pattern: "</[a-zA-Z]+>"
 
   # **String Literals** (Place before punctuators and operators)
   # Double-quoted string literal
