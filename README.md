@@ -1,6 +1,6 @@
 ![Pylex logo](resources/pylex.png)
 
-Welcome to PyLex! A customizable lexer (tokenizer) designed to tokenize programming languages using a user-defined configuration. The key feature of this lexer is the ability to define how the tokenization process works through a YAML configuration file. You can either use the provided lexer configura
+Welcome to PyLex! A customizable lexer (tokenizer) designed to tokenize programming languages using a user-defined configuration. The key feature of this lexer is the ability to define how the tokenization process works through a YAML configuration file. You can either use the provided lexer configuration, or role your own by following the provided [schema](lexer_schema.json)
 
 ### Features
 
