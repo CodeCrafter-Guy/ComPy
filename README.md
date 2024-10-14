@@ -1,4 +1,4 @@
-![Alt text](resources/pylex.png)
+![Pylex logo](resources/pylex.png)
 
 Welcome to PyLex! A customizable lexer (tokenizer) designed to tokenize programming languages using a user-defined configuration. The key feature of this lexer is the ability to define how the tokenization process works through a YAML configuration file. You can either use the provided lexer configura
 
@@ -10,6 +10,15 @@ Welcome to PyLex! A customizable lexer (tokenizer) designed to tokenize programm
 -   Easy to Extend: Add new token types or modify existing ones without changing the core lexer code.
 
 **Please note this is an early concept and some languages have only been tested with "hello world" examples. If you would like to update the sanity_tests or the lexer_config yaml feel free to submit a pr!**
+
+## ProjectRoadmap
+
+| Stage                                              | Description                                                                                                                                                                              | Status        |
+| -------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------- |
+| ![Snake egg](resources/egg.png)                    | Taking the initial idea and testing its feasibility. Looking at the infrastructure required to allow seemless open source input                                                          | Current stage |
+| ![baby snake](resources/babysnake.png)             | Improving the lexer based on early testing and feeback.                                                                                                                                  |               |
+| ![adolescent snake](resources/adolescentsnake.png) | Maturing the lexer through iterative improvements and feature updates.                                                                                                                   |               |
+| ![wizard](resources/wizard.png)                    | Major updates and bugs are complete and the project is now in a maintenance state, adding new languages and updating the lexer if languages add features that the lexer does not support |               |
 
 ### Installation
 
