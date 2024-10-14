@@ -10,7 +10,7 @@ on:
 jobs:
     validate:
         runs-on: ubuntu-latest
-
+        permissions: write-all
         steps:
             - name: Checkout repository content
               uses: actions/checkout@v3
@@ -30,7 +30,7 @@ jobs:
               run: |
                   {
                   echo 'VALIDATION_RESULTS<<EOF'
-                  python validate_yaml.py
+                  python validate.py
                   echo EOF
                   } >> "$GITHUB_OUTPUT"
                   python hard_validate.py

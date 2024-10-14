@@ -1,4 +1,4 @@
-![Alt text](resources/pylex.png)
+![Pylex logo](resources/pylex.png)
 
 Welcome to PyLex! A customizable lexer (tokenizer) designed to tokenize programming languages using a user-defined configuration. The key feature of this lexer is the ability to define how the tokenization process works through a YAML configuration file. You can either use the provided lexer configura
 
@@ -11,13 +11,34 @@ Welcome to PyLex! A customizable lexer (tokenizer) designed to tokenize programm
 
 **Please note this is an early concept and some languages have only been tested with "hello world" examples. If you would like to update the sanity_tests or the lexer_config yaml feel free to submit a pr!**
 
+## Project Roadmap
+
+| Stage                                              | Description                                                                                                                                                                              | Status        |
+| -------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------- |
+| ![Snake egg](resources/egg.png)                    | Taking the initial idea and testing its feasibility. Looking at the infrastructure required to allow seemless open source input                                                          | Current stage |
+| ![baby snake](resources/babysnake.png)             | Improving the lexer based on early testing and feeback.                                                                                                                                  |               |
+| ![adolescent snake](resources/adolescentsnake.png) | Maturing the lexer through iterative improvements and feature updates.                                                                                                                   |               |
+| ![wizard](resources/wizard.png)                    | Major updates and bugs are complete and the project is now in a maintenance state, adding new languages and updating the lexer if languages add features that the lexer does not support |               |
+
+## Contributors needed!
+
+![we need you poster](resources/needyou.png)
+
+Well... ahem... I need you really, its quite a big project and if you are interested in taking part, please do let me know! even if you dont write in python, we could use example code in the `sanity_tests/` folder to actually test the lexer properly. Its initial phase has hellow world code examples taken from respective official documentation and doesn't help us to capture all the different common scenarios.
+
+With ~~our python army, we could take over the WORLD!~~ help from the lovely open source community. We could build and develop a lexer that supports multiple languages!
+
+![Army of snake wizards](resources/army.png)
+
+Even if you're un familiar with compilers and lexers in particular. they are surprisingly simple and I am happy to help get you up to speed!
+
 ### Installation
 
 Clone the Repository
 
 ```bash
-git clone https://github.com/CodeCrafter-Guy/lexer-project.git
-cd lexer-project
+git clone https://github.com/CodeCrafter-Guy/PyLex.git
+cd PyLex
 ```
 
 Create a Virtual Environment (Optional but Recommended)
@@ -55,6 +76,8 @@ eg:
 python main.py my/javascript.js lexers/javascript.yaml
 ```
 
+## How it works
+
 #### Lexer Configuration YAML File
 
 The lexer uses a YAML file to define how tokenization works. This file specifies:
@@ -66,6 +89,7 @@ The lexer uses a YAML file to define how tokenization works. This file specifies
 
 ```yaml
 lexer_target: javascript
+version: 1.0.0
 delimiters: " \t\n\r;(){}[]+=-\*/%&|^!<>?:.,"
 tokens:
 
@@ -216,7 +240,7 @@ For regex patterns, ensure patterns are correctly specified.
 Project Structure (This is quite an early project so may change in future).
 
 ```bash
-lexer-project/
+PyLex/
 ├── lexers/
 │ ├── lexer.py # Core lexer functions
 ├── main.py # Entry point of the application
@@ -239,7 +263,7 @@ Click the "Fork" button at the top-right corner of the repository page.
 Clone Your Fork
 
 ```bash
-git clone https://github.com/CodeCrafter-Guy/lexer-project.git
+git clone https://github.com/CodeCrafter-Guy/PyLex.git
 ```
 
 Create a Feature Branch
