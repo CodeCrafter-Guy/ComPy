@@ -48,8 +48,18 @@ def get_string_slice(input_text, current_position, delimiters):
         current_position += 1
     
     return slice_text, current_position
-
 def process_tokens(input_text, current_position, lexer_config):
+    """
+    Process tokens from the input text starting at the current position.
+
+    Parameters:
+        input_text (str): The text to tokenize.
+        current_position (int): The current index in the input text.
+        lexer_config (dict): The lexer configuration dictionary.
+
+    Returns:
+        tuple: A tuple containing the matched token (dict) and the new current position (int).
+    """
     value = ''
     token_type = ''
     matched = False
@@ -62,15 +72,16 @@ def process_tokens(input_text, current_position, lexer_config):
     if not is_in_bounds(input_text, current_position):
         return None, current_position
 
-    skip_delimiter_check_for_types = lexer_config.get('skip_delimiter_check_for_types', [])
+    delimiter_check_for_types = lexer_config.get('delimiter_check_for_types', [])
 
     for token in lexer_config['tokens']:
         if 'value' in token:
             token_value = token['value']
             end_position = current_position + len(token_value)
             proposed_value = input_text[current_position:end_position]
-            if proposed_value == token_value:                
-                if token['type'] not in skip_delimiter_check_for_types:
+            if proposed_value == token_value:
+                # Decide whether to check for delimiter based on token type
+                if token['type'] in delimiter_check_for_types:                    
                     if end_position >= len(input_text) or input_text[end_position] in lexer_config['delimiters']:
                         value = token_value
                         token_type = token['type']

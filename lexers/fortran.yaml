@@ -1,6 +1,10 @@
 lexer_target: fortran
 version: 1.0.0
 delimiters: " \t\n\r;(){}[],+-*/%&|^!<>?:='\""
+delimiter_check_for_types:
+  - keyword
+  - identifier
+  - number
 tokens:
   # **Comments** (Placed first)
   - type: comment

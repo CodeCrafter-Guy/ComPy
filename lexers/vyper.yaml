@@ -1,6 +1,10 @@
 lexer_target: vyper
 delimiters: " \t\n\r;(){}[]:.,+-*/%&|^~<>!=#@\\'\""
 version: 1.0.0
+delimiter_check_for_types:
+  - keyword
+  - identifier
+  - number
 tokens:
   # **Comments** (Placed first)
   - type: single_line_comment

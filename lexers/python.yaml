@@ -1,6 +1,10 @@
 lexer_target: python
 version: 1.0.0
 delimiters: " \t\n\r;(){}[]:.,+-*/%&|^~<>!=#@\\'\""
+delimiter_check_for_types:
+  - keyword
+  - identifier
+  - number
 tokens:
   # **Comments** (Place before other tokens to prevent conflicts)
   - type: multi_line_comment

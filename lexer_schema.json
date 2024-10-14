@@ -7,10 +7,10 @@
         "delimiters",
         "tokens",
         "version",
-        "skip_delimiter_check_for_types"
+        "delimiter_check_for_types"
     ],
     "properties": {
-        "skip_delimiter_check_for_types": {
+        "delimiter_check_for_types": {
             "type": "array",
             "items": {
                 "type": "string"

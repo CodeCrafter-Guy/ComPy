@@ -1,6 +1,11 @@
 lexer_target: typescript
 version: 1.0.0
 delimiters: " \t\n\r;(){}[]+=-*/%&|^!<>?:.,'\"`~#@"
+delimiter_check_for_types:
+  - keyword
+  - identifier
+  - number
+  - string_literal
 tokens:
   # **Comments** (Place first)
   - type: multi_line_comment

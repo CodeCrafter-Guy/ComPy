@@ -1,20 +1,16 @@
 version: 1.0.0
 lexer_target: javascript
 delimiters: " ;(){}[]+=-*/%&|^!?:.,"
-skip_delimiter_check_for_types:
-  - operator
-  - punctuator
-  - open_code_block
-  - closed_code_block
-  - open_parenthesis
-  - closed_parenthesis
-  - open_square_bracket
-  - closed_square_bracket
-  - open_element_tag
-  - close_element_tag
+delimiter_check_for_types:
+  - keyword
+  - identifier
+  - number
+  - boolean_literal
+  - null_literal
+  - built_in_type
+  - none_literal
   - string_literal
-  - template_literal_start
-  - template_literal_end
+
 tokens:
   # **Comments** (Place before operators to prevent conflicts with '/')
   - type: multi_line_comment
