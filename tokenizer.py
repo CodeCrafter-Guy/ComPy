@@ -1,3 +1,4 @@
+import json
 def tokenize(input, lexer_config, lexer):
     current_position = 0
     tokens = []
@@ -10,4 +11,4 @@ def tokenize(input, lexer_config, lexer):
             current_position = new_position
         else:
             current_position += 1
-    return tokens
+    return json.dumps(tokens)
