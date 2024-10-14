@@ -1,6 +1,10 @@
 lexer_target: rust
 version: 1.0.0
 delimiters: " \t\n\r;(){}[]+=-*/%&|^!<>?:.,@#$`~"
+delimiter_check_for_types:
+  - keyword
+  - identifier
+  - number
 tokens:
   # **Comments** (Placed first to prevent conflicts with operators like '/')
   - type: multi_line_comment
