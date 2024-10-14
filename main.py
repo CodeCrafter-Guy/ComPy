@@ -17,8 +17,9 @@ Example:
 
 import argparse
 import yaml
-import tokenizer
+
 from lexers.lexer import process_tokens
+from tokenizer.tokenizer import tokenize
 
 def read_file(file_path):
     """
@@ -73,7 +74,7 @@ def main():
     input_text = read_file(args.input_file)
     lexer_config = read_lexer_config(args.lexer_config)
     
-    tokens = tokenizer.tokenize(input_text, lexer_config, process_tokens)
+    tokens = tokenize(input_text, lexer_config, process_tokens)
     
     print(tokens)
 
